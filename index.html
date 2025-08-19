@@ -1,1 +1,594 @@
-null
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的简历</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      background-color: #f0f8ff;
+    }
+
+    .header {
+      background: linear-gradient(to right, #6495ed, #4169e1);
+      color: white;
+      padding: 20px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header .avatar-container {
+      flex: 0 0 auto;
+    }
+
+    .header .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid white;
+      display: block;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .header .info-container {
+      flex: 1;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header .title {
+      font-size: 16px;
+      margin-bottom: 15px;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .header .info-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .header .info-tag {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+    }
+
+    .header .info-tag:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .tag {
+      background-color: #ff69b4;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .section {
+      margin: 20px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+      background-color: #87ceeb;
+      color: white;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .section-content {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .cert-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .cert-item {
+      background-color: #f5f5f5;
+      padding: 8px;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+
+    .certificate-list {
+      padding-left: 30px; 
+      list-style-type: disc; 
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 10px 10px; 
+      margin: 0 auto;
+      max-width: 500px; 
+    }
+
+    .certificate-list li {
+      padding-left: 5px;
+      line-height: 1.3;
+    }
+
+    .img-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      overflow: hidden;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .img-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .img-container img:hover {
+      transform: scale(1.05);
+    }
+
+    .img-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 767px) {
+      .img-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .header .info-tags {
+        gap: 15px;
+      }
+
+      .img-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .header .info-tags {
+        justify-content: center;
+      }
+
+      .certificate-list {
+        gap: 8px 10px;
+        padding-left: 25px;
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-around;
+      padding: 15px;
+      background-color: #ff69b4;
+      border-radius: 20px 20px 0 0;
+      margin-top: 20px;
+    }
+
+    .footer-btn {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal-image {
+      max-width: 100%;
+      max-height: 80vh;
+      display: block;
+      border: 4px solid white;
+      border-radius: 5px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      color: white;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .close-btn:hover {
+      color: #ff69b4;
+    }
+
+    .copy-toast {
+      position: fixed;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1001;
+    }
+
+    .copy-toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="avatar-container">
+        <img src="img/avatar.jpg" alt="img" class="avatar">
+      </div>
+      <div class="info-container">
+        <h1>唐燕</h1>
+        <p class="title">金牌母婴护理师</p>
+        <div class="info-tags">
+          <span class="info-tag">43岁</span>
+          <span class="info-tag">属鸡</span>
+          <span class="info-tag">四川人</span>
+          <span class="info-tag">高中学历</span>
+          <span class="info-tag">5年经验</span>
+          <span class="info-tag">带过30+个宝宝</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">个人简介</h2>
+      <div class="section-content">
+        <p>
+<b>姓名：</b>唐燕<br>
+<b>年龄：</b>43岁<br>
+<b>身高：</b>150cm<br>
+<b>体重：</b>130斤<br>
+<b>家庭：</b>3口人<br>
+<b>婚姻状况：</b>已婚<br>
+<b>身体状况：</b>良好<br>
+<b>学历：</b>高中，目前在学日语，计划留学<br>
+<b>籍贯：</b>四川泸州<br>
+<b>住家经验：</b>新生儿28个，满月3个<br>
+<b>服务年限：</b>从事母婴护理工作5年，护理过30多个宝宝。凭着专业的技能和优质的服务，获得了客户的一致好评！<br>
+<b>护理内容：</b>主要是护理产妇和新生儿<br>
+<b>持有证件：</b>金牌月嫂证、精英母婴护理证、高级催乳师、双胞胎早产儿证、收纳整理证<br><br>
+<b>技能与特长：</b><br><br>
+<b>一、纯母乳喂养指导</b><br>
+通过系统培训和丰富实践，熟练掌握产后哺乳常见问题的解决办法，已帮助大量客户实现纯母乳喂养。<br>
+<b>母乳喂养优势：</b>增强宝宝抵抗力、免疫力，减少过敏；营养均衡、安全好消化。对妈妈来说，能促进产后恢复，降低卵巢癌、乳腺癌风险，且喂养方便、成本低。<br><br>
+<b>二、婴儿睡眠管理</b><br>
+学习过业内领先的婴儿睡眠管理课程，熟悉婴儿睡眠周期和生长发育规律。能结合家庭实际，科学规划和培养宝宝的睡眠习惯，帮宝宝建立良好作息。<br>
+<b>规律睡眠的好处：</b>促进生长发育和蛋白质合成，助力智力发展，还能提高宝宝抵抗力。<br><br>
+<b>三、产后护理与恢复</b><br>
+提供专业的产后恢复服务：<br>
+<b>· 产后护理：</b>在恶露处理、伤口护理、乳房护理等方面经验丰富，帮助产妇恢复身体机能；<br>
+<b>· 饮食营养：</b>懂营养搭配，能结合产妇和宝宝需求，合理搭配七大营养素，有多样月子餐方案，适应不同家庭饮食需求；<br>
+<b>· 心理疏导：</b>关注产妇心理状态，能有效疏导情绪，减轻焦虑、疲惫等问题，帮产妇重拾自信。<br><br>
+<b>四、婴儿常见问题处理</b><br>
+能妥善处理婴儿常见问题：<br>
+<b>· 日常护理：</b>在熟练护理基础上，结合宝宝皮肤、排便、体重等情况灵活调整，提供个性化服务；<br>
+<b>· 常见问题应对：</b>有处理新生儿黄疸、母乳性黄疸、肚脐护理、吐奶呛奶等问题的丰富经验；<br>
+<b>· 生长发育支持：</b>了解婴儿发育规律，能针对性缓解肠胀气，进行追听追视、体力训练等。<br><br>
+<b>个人感悟：</b><br>
+从事母婴护理5年多，积累了不少经验，加上不断学习，在护理宝妈和宝宝方面，已经形成了科学有效的方法。<br>
+感谢每个合作家庭的信任，希望能用自己的技能服务更多有需要的家庭❤️。
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">持有证书</h2>
+      <div class="section-content">
+        <ul class="certificate-list">
+          <li>金牌月嫂</li>
+          <li>高级催乳师</li>
+          <li>双胞胎早产儿护理</li>
+          <li>收纳整理师</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">证书照片</h2>
+      <div class="section-content">
+        <div class="img-grid">
+          <div class="img-container">
+            <img src="img/zs1.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/zs2.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/zs3.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/zs4.jpg" alt="img" class="modal-trigger">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">我与宝宝的快乐时光</h2>
+      <div class="section-content">
+        <div class="img-grid">
+          <div class="img-container">
+            <img src="img/sg1.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/sg2.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/sg3.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/sg4.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/sg5.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/sg6.jpg" alt="img" class="modal-trigger">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="section">
+      <h2 class="section-title">我的营养餐食展示</h2>
+      <div class="section-content">
+        <div class="img-grid">
+          <div class="img-container">
+            <img src="img/cs1.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs2.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs3.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs4.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs5.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs6.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs7.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs8.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs9.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs10.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs11.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs12.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs13.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs14.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs15.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs16.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs17.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs18.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs19.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs20.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/cs21.jpg" alt="img" class="modal-trigger">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">来自宝妈的暖心评价</h2>
+      <div class="section-content">
+        <div class="img-grid">
+          <div class="img-container">
+            <img src="img/pj1.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/pj2.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/pj3.jpg" alt="img" class="modal-trigger">
+          </div>
+          <div class="img-container">
+            <img src="img/pj4.jpg" alt="img" class="modal-trigger">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-btn" id="phoneBtn">拨打电话</div>
+      <a href="#" class="footer-btn" id="wechatBtn">添加微信</a>
+    </div>
+  </div>
+
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <button class="close-btn">&times;</button>
+      <img src="" alt="" class="modal-image" id="modalImage">
+    </div>
+  </div>
+
+  <div class="copy-toast" id="copyToast">电话号码已复制到剪贴板</div>
+
+  <script>
+    const phoneNumber = '18008203906';
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const closeBtn = document.querySelector('.close-btn');
+    const imageTriggers = document.querySelectorAll('.modal-trigger');
+    const wechatBtn = document.getElementById('wechatBtn');
+    const phoneBtn = document.getElementById('phoneBtn');
+    const copyToast = document.getElementById('copyToast');
+
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    phoneBtn.addEventListener('click', function() {
+      if (isMobileDevice()) {
+
+        window.location.href = `tel:${phoneNumber}`;
+      } else {
+
+        navigator.clipboard.writeText(phoneNumber).then(() => {
+
+          copyToast.classList.add('show');
+          setTimeout(() => {
+            copyToast.classList.remove('show');
+          }, 2000);
+        }).catch(err => {
+          console.error('无法复制内容: ', err);
+          alert('复制失败，请手动复制电话号码：' + phoneNumber);
+        });
+      }
+    });
+
+    imageTriggers.forEach(image => {
+      image.addEventListener('click', function() {
+        modal.style.display = 'flex';
+        modalImage.src = this.src;
+        modalImage.alt = this.alt;
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    wechatBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      modal.style.display = 'flex';
+      modalImage.src = 'img/wx.jpg';
+      modalImage.alt = 'img';
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
